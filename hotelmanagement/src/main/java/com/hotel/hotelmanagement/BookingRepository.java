@@ -1,5 +1,7 @@
 package com.hotel.hotelmanagement;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,6 +11,9 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     boolean existsByGuest_Id(Long guestId);
 
     boolean existsByRoom_Id(Long roomId);
+
+    // One guest's bookings, latest check-in first (ISO dates sort as text).
+    List<Booking> findByGuest_IdOrderByCheckInDateDesc(Long guestId);
 
     // Counts CONFIRMED bookings for a room that overlap [checkIn, checkOut).
     // Dates are ISO strings (YYYY-MM-DD), which compare correctly as text.
