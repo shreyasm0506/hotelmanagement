@@ -6,5 +6,5 @@
 //
 // No trailing slash needed (one is removed if present).
 window.HOTEL_CONFIG = {
-    API_BASE: "http://localhost:8080"
+    API_BASE: "https://hotelmanagement-9wgw.onrender.com"
 };
