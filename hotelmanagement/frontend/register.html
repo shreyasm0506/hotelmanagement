@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your Grand Stay account.">
+    <title>Create an account | Grand Stay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-mode">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                grand<span>stay.</span>
+            </a>
+
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary">
+                    Back to Home
+                </a>
+                <button id="theme-toggle" class="theme-toggle" type="button">
+                    <span id="theme-icon">Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="booking-page">
+        <section class="booking-form-section">
+            <p class="section-label">JOIN GRAND STAY</p>
+            <h1>Create an account</h1>
+            <p>
+                An account lets you book rooms and see your bookings in one place.
+            </p>
+
+            <form id="auth-form" class="auth-form" novalidate>
+                <label for="full-name">Full name</label>
+                <input type="text" id="full-name" name="fullName" autocomplete="name" maxlength="100" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" required>
+
+                <label for="phone">Phone number (optional)</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="20">
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="new-password" minlength="8" required>
+                <p class="form-hint">At least 8 characters.</p>
+
+                <label for="confirm-password">Confirm password</label>
+                <input type="password" id="confirm-password" name="confirmPassword" autocomplete="new-password" required>
+
+                <button type="submit" class="btn" id="auth-submit">
+                    Create account
+                </button>
+
+                <p id="auth-message" role="status" aria-live="polite"></p>
+            </form>
+
+            <p class="auth-switch">
+                Already have an account? <a id="login-link" href="login.html">Log in</a>
+            </p>
+        </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script src="register.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your Grand Stay bookings.">
+    <title>My Bookings | Grand Stay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-mode">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                grand<span>stay.</span>
+            </a>
+
+            <div class="header-actions">
+                <a href="booking.html" class="btn btn-primary">Book a Stay</a>
+                <div id="auth-area" class="auth-area"></div>
+                <button id="theme-toggle" class="theme-toggle" type="button">
+                    <span id="theme-icon">Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="bookings-page">
+        <section class="bookings-section">
+            <p class="section-label">YOUR STAYS</p>
+            <h1>My bookings</h1>
+
+            <p id="bookings-message" role="status" aria-live="polite">Loading your bookings...</p>
+
+            <div id="bookings-list" class="bookings-list"></div>
+        </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="theme.js"></script>
+    <script src="my-bookings.js"></script>
+</body>
+
+</html>

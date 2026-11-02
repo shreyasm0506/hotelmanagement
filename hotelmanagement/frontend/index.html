@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Discover Grand Stay, a luxury hotel experience with thoughtfully designed rooms and exceptional comfort.">
+
+    <title>Grand Stay | Luxury Hotel</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-mode">
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+
+            <a href="#home" class="logo">
+                grand<span>stay.</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#rooms">Explore Rooms</a>
+                <a href="#about">About Us</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="booking.html" class="booking-link">Book Now</a>
+
+                <a href="booking.html" class="btn btn-primary">
+                    Book a Stay
+                </a>
+
+                <div id="auth-area" class="auth-area"></div>
+
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to light mode">
+                    <span id="theme-icon">Light</span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- Hero Section -->
+    <main>
+
+        <section class="hero" id="home">
+            <div class="hero-container">
+
+                <div class="hero-content">
+
+                    <p class="eyebrow">
+                        YOUR NEXT GETAWAY STARTS HERE
+                    </p>
+
+                    <h1>
+                        Find a place<br> to <span>feel at home.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Thoughtfully designed rooms, exceptional comfort, and a stay that makes every moment count.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#rooms" class="btn btn-primary">
+                            Explore Rooms
+                            <span class="arrow" aria-hidden="true">&rarr;</span>
+                        </a>
+
+                        <a href="#about" class="btn btn-secondary">
+                            Discover Grand Stay
+                        </a>
+                    </div>
+
+                    <p class="hero-note">
+                        <span class="status-dot"></span> Your comfort, our priority.
+                    </p>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=85" alt="Elegant hotel bedroom with warm lighting" class="hero-image">
+
+                    <div class="hero-image-caption">
+                        <div>
+                            <h3>Stay a little longer.</h3>
+                            <p>Comfort in every detail.</p>
+                        </div>
+
+                        <a href="#rooms" class="caption-arrow" aria-label="Explore hotel rooms">
+                            &nearr;
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Rooms Section -->
+        <section class="rooms-section" id="rooms">
+
+            <div class="section-container">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">OUR ACCOMMODATIONS</p>
+                        <h2>Rooms designed for <span>your comfort.</span></h2>
+                    </div>
+
+                    <p class="section-description">
+                        Find the perfect space to relax, recharge, and enjoy your stay.
+                    </p>
+                </div>
+
+                <div class="room-search">
+                    <label for="room-check-in">Check-in</label>
+                    <input type="date" id="room-check-in">
+
+                    <label for="room-check-out">Check-out</label>
+                    <input type="date" id="room-check-out">
+
+                    <button type="button" id="search-rooms" class="btn">
+                        Search Available Rooms
+                    </button>
+                </div>
+
+
+                <div id="room-container" class="room-grid">
+
+                    <p class="loading-message">
+                        Your next stay is waiting to be discovered.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+
+            <div class="section-container about-container">
+
+                <div class="about-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85" alt="Luxury hotel with a beautiful swimming pool" class="about-image" loading="lazy">
+                </div>
+
+                <div class="about-content">
+
+                    <p class="eyebrow">THE GRAND STAY EXPERIENCE</p>
+
+                    <h2>
+                        More than a stay.<br>
+                        <span>A feeling.</span>
+                    </h2>
+
+                    <p>
+                        At Grand Stay, we believe every journey deserves a place where comfort meets thoughtful design. Our goal is to make every guest feel welcome.
+                    </p>
+
+                    <p>
+                        From carefully prepared rooms to attentive hospitality, every detail is designed to make your experience memorable.
+                    </p>
+
+                    <a href="#rooms" class="btn btn-primary">
+                        Find Your Room
+                        <span class="arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Booking Call to Action -->
+        <section class="booking-section">
+
+            <div class="booking-content">
+
+                <p class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
+
+                <h2>Make yourself at home.</h2>
+
+                <p>
+                    Discover your room and plan your next comfortable stay.
+                </p>
+
+                <a href="booking.html" class="btn btn-primary">
+                    Book Your Stay
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+
+        <div class="section-container footer-container">
+
+            <div class="footer-brand">
+                <a href="#home" class="logo">
+                    grand<span>stay.</span>
+                </a>
+
+                <p>
+                    Thoughtful hospitality. Exceptional comfort. Memorable stays.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Explore</h3>
+                <a href="#home">Home</a>
+                <a href="#rooms">Explore Rooms</a>
+                <a href="#about">About Us</a>
+            </div>
+
+            <div class="footer-links">
+                <h3>Reservations</h3>
+                <a href="booking.html">Book a Stay</a>
+                <a href="#rooms">Available Rooms</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>
+                &copy; <span id="current-year"></span> Grand Stay. All rights reserved.
+            </p>
+        </div>
+
+    </footer>
+
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

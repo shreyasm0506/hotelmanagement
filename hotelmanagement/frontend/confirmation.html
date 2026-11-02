@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Your Grand Stay booking confirmation.">
+    <title>Booking Confirmed | Grand Stay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-mode">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                grand<span>stay.</span>
+            </a>
+
+            <div class="header-actions">
+                <div id="auth-area" class="auth-area"></div>
+                <button id="theme-toggle" class="theme-toggle" type="button">
+                    <span id="theme-icon">Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="confirmation-page">
+        <section class="confirmation-card">
+            <p class="section-label">GRAND STAY HOTEL</p>
+
+            <div class="confirmation-symbol" aria-hidden="true">✓</div>
+
+            <h1>Booking Confirmed</h1>
+            <p class="confirmation-intro">
+                Thank you for choosing Grand Stay. Your booking details are below.
+            </p>
+
+            <div id="confirmation-details">
+                <p>Loading your booking details...</p>
+            </div>
+
+            <div class="confirmation-actions">
+                <a href="index.html" class="btn">Return to Home</a>
+                <button id="print-booking" class="btn btn-secondary" type="button">
+                    Print Confirmation
+                </button>
+            </div>
+
+            <p id="confirmation-message" role="status"></p>
+        </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="confirmation.js"></script>
+</body>
+
+</html>

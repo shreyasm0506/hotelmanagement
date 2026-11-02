@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book your stay at Grand Stay Hotel.">
+    <title>Book a Stay | Grand Stay</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-mode">
+
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                grand<span>stay.</span>
+            </a>
+
+            <div class="header-actions">
+                <a href="index.html" class="btn btn-secondary">
+                    Back to Home
+                </a>
+                <div id="auth-area" class="auth-area"></div>
+                <button id="theme-toggle" class="theme-toggle" type="button">
+                    <span id="theme-icon">Light</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="booking-page">
+        <section class="booking-form-section">
+            <p class="section-label">YOUR STAY, YOUR WAY</p>
+            <h1>Reserve Your Room</h1>
+            <p>
+                Choose a room type and your dates. We'll assign you an available room of that type.
+            </p>
+
+            <form id="booking-form">
+                <label for="room-id">Select Room Type</label>
+                <select id="room-id" name="roomType" required>
+                    <option value="">Loading room types...</option>
+                </select>
+
+                <label for="check-in">Check-in Date</label>
+                <input type="date" id="check-in" name="checkIn" required>
+
+                <label for="check-out">Check-out Date</label>
+                <input type="date" id="check-out" name="checkOut" required>
+
+                <label for="guests">Number of Guests</label>
+                <input type="number" id="guests" name="guests" min="1" max="10" value="1" required>
+
+                <button type="submit" class="btn">
+                    Continue to Booking
+                </button>
+
+                <p id="booking-message" role="status"></p>
+            </form>
+        </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="booking.js"></script>
+</body>
+
+</html>
