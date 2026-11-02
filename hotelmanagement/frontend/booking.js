@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // ---------- Elements ----------
 
-    const ROOM_TYPES_URL = "http://localhost:8080/api/rooms/types";
+    const ROOM_TYPES_URL = Auth.API + "/api/rooms/types";
 
     const roomSelect = document.getElementById("room-id");
     const bookingForm = document.getElementById("booking-form");

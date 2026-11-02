@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // ---------- Elements ----------
 
-    const ROOM_TYPES_URL = "http://localhost:8080/api/rooms/types";
+    const ROOM_TYPES_URL = Auth.API + "/api/rooms/types";
     const roomContainer = document.getElementById("room-container");
     const searchCheckIn = document.getElementById("room-check-in");
     const searchCheckOut = document.getElementById("room-check-out");

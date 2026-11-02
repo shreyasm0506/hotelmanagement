@@ -1,6 +1,8 @@
 // Shared login helpers. Load this before the page's own script.
 (function () {
-    const API = "http://localhost:8080";
+    const API = String(
+        (window.HOTEL_CONFIG && window.HOTEL_CONFIG.API_BASE) || "http://localhost:8080"
+    ).replace(/\/+$/, "");
     const TOKEN_KEY = "hotel-token";
     const USER_KEY = "hotel-user";
 

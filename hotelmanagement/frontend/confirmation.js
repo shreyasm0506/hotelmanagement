@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             try {
                 const roomResponse = await fetch(
-                    "http://localhost:8080/api/rooms/" + booking.roomId
+                    Auth.API + "/api/rooms/" + booking.roomId
                 );
 
                 if (roomResponse.ok) {
