@@ -28,7 +28,7 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/rooms")
 public class RoomController {
 
-    // One entry per room type, shown as one card on the
+    // One entry per room type, shown as one card on the website.
     public record RoomTypeSummary(
             String roomType,
             double startingPrice,

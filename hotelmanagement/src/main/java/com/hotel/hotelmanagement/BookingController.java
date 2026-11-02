@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.hotel.hotelmanagement.auth.AuthUser;
+
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
@@ -36,6 +39,7 @@ public class BookingController {
     private static final String COMPLETED = "COMPLETED";
 
     // Request body for booking "a Deluxe room" instead of a specific room.
+    // guestId is only honoured for admins; guests always book as themselves.
     public record BookingByTypeRequest(
             Long guestId,
             String roomType,
@@ -65,9 +69,23 @@ public class BookingController {
         return bookingRepository.findAll();
     }
 
+    // The logged-in guest's own bookings, newest first
+    @GetMapping("/mine")
+    public List<Booking> getMyBookings(@AuthenticationPrincipal AuthUser user) {
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Please log in");
+        }
+
+        return bookingRepository.findByGuest_IdOrderByCheckInDateDesc(user.guestId());
+    }
+
+    // A guest can only read their own booking; admins can read any
     @GetMapping("/{id}")
-    public Booking getBookingById(@PathVariable Long id) {
-        return findBookingOr404(id);
+    public Booking getBookingById(
+            @PathVariable Long id,
+            @AuthenticationPrincipal AuthUser user) {
+        return findOwnedBookingOr404(id, user);
     }
 
     // Returns JSON: { "roomId": 1, "available": true, "message": "...", "reason": "..." }
@@ -114,17 +132,17 @@ public class BookingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public Booking addBooking(@RequestBody Booking request) {
+    public Booking addBooking(
+            @RequestBody Booking request,
+            @AuthenticationPrincipal AuthUser user) {
 
-        if (request.getGuestId() == null) {
-            throw new IllegalArgumentException("Guest is required");
-        }
+        Long guestId = resolveGuestId(user, request.getGuestId());
 
         if (request.getRoomId() == null) {
             throw new IllegalArgumentException("Room is required");
         }
 
-        Guest guest = guestRepository.findById(request.getGuestId())
+        Guest guest = guestRepository.findById(guestId)
                 .orElseThrow(() ->
                         new IllegalArgumentException("Guest not found"));
 
@@ -179,7 +197,9 @@ public class BookingController {
     @PostMapping("/by-type")
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional
-    public Booking addBookingByType(@RequestBody BookingByTypeRequest request) {
+    public Booking addBookingByType(
+            @RequestBody BookingByTypeRequest request,
+            @AuthenticationPrincipal AuthUser user) {
 
         if (request.roomType() == null || request.roomType().isBlank()) {
             throw new IllegalArgumentException("Room type is required");
@@ -205,14 +225,14 @@ public class BookingController {
 
         // Reuse the normal create logic (guest check, past-date check, etc.)
         Booking booking = new Booking();
-        booking.setGuestId(request.guestId());
+        booking.setGuestId(resolveGuestId(user, request.guestId()));
         booking.setRoomId(room.getId());
         booking.setCheckInDate(checkIn.toString());
         booking.setCheckOutDate(checkOut.toString());
         booking.setGuestCount(request.guestCount());
         booking.setStatus(CONFIRMED);
 
-        return addBooking(booking);
+        return addBooking(booking, user);
     }
 
     // ---------- Update ----------
@@ -283,13 +303,22 @@ public class BookingController {
         return bookingRepository.save(booking);
     }
 
+    // A guest can cancel their own booking; admins can cancel any
     @PutMapping("/{id}/cancel")
-    public Booking cancelBooking(@PathVariable Long id) {
-        Booking booking = findBookingOr404(id);
+    public Booking cancelBooking(
+            @PathVariable Long id,
+            @AuthenticationPrincipal AuthUser user) {
+
+        Booking booking = findOwnedBookingOr404(id, user);
 
         if (CANCELLED.equalsIgnoreCase(booking.getStatus())) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Booking is already cancelled");
+        }
+
+        if (COMPLETED.equalsIgnoreCase(booking.getStatus())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Completed bookings cannot be cancelled");
         }
 
         booking.setStatus(CANCELLED);
@@ -310,6 +339,37 @@ public class BookingController {
     }
 
     // ---------- Helpers ----------
+
+    // Guests always book as themselves. Admins may book for another guest.
+    private Long resolveGuestId(AuthUser user, Long requestedGuestId) {
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Please log in");
+        }
+
+        if (user.isAdmin() && requestedGuestId != null) {
+            return requestedGuestId;
+        }
+
+        return user.guestId();
+    }
+
+    // Someone else's booking is reported as "not found" so ids can't be probed
+    private Booking findOwnedBookingOr404(Long id, AuthUser user) {
+        if (user == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED, "Please log in");
+        }
+
+        Booking booking = findBookingOr404(id);
+
+        if (!user.isAdmin() && !user.guestId().equals(booking.getGuestId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Booking not found");
+        }
+
+        return booking;
+    }
 
     private Booking findBookingOr404(Long id) {
         return bookingRepository.findById(id)
